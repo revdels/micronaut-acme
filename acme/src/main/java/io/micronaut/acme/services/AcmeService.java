@@ -231,11 +231,19 @@ public class AcmeService {
     }
 
     private Login doLogin(Session session, KeyPair accountKeyPair) throws AcmeException {
-        Login login = new AccountBuilder()
-                .onlyExisting()
-                .useKeyPair(accountKeyPair)
-                .createLogin(session);
-        return login;
+        AccountBuilder accountBuilder = new AccountBuilder();
+        if (acmeConfiguration.isTosAgree()) {
+            accountBuilder.agreeToTermsOfService();
+        }
+        if (acmeConfiguration.getEMail() != null && !acmeConfiguration.getEMail().isEmpty()) {
+            accountBuilder.addEmail(acmeConfiguration.getEMail());
+        }
+        if (acmeConfiguration.getUseExistingAccount()) {
+            accountBuilder.onlyExisting();
+        }
+        accountBuilder.useKeyPair(accountKeyPair);
+
+        return accountBuilder.createLogin(session);
     }
 
     @SuppressWarnings("java:S3776")

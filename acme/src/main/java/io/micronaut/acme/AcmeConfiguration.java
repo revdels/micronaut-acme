@@ -39,10 +39,13 @@ public class AcmeConfiguration implements Toggleable {
     private static final int DEFAULT_REFRESH_ATTEMPTS = 10;
     private static final boolean DEFAULT_ACME_ENABLED = true;
     private static final boolean DEFAULT_TOS_AGREE = false;
+    private static final boolean DEFAULT_USE_EXISTING_ACCOUNT = true;
     private static final ChallengeType DEFAULT_CHALLENGE_TYPE = ChallengeType.TLS;
 
     private boolean enabled = DEFAULT_ACME_ENABLED;
     private boolean tosAgree = DEFAULT_TOS_AGREE;
+    private String email;
+    private boolean useExistingAccount = DEFAULT_USE_EXISTING_ACCOUNT;
     private Duration renewWitin = DEFAULT_RENEW_WITHIN;
     private List<String> domains;
     private String accountKey;
@@ -109,6 +112,43 @@ public class AcmeConfiguration implements Toggleable {
      */
     public void setTosAgree(boolean tosAgree) {
         this.tosAgree = tosAgree;
+    }
+
+    /**
+     * Gets the accounts email address.
+     *
+     * @return email address
+     */
+    public String getEMail() {
+        return email;
+    }
+
+    /**
+     * Sets the accounts email address.
+     *
+     * @param email email address
+     */
+    public void setEMail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Get weather or not to use an existing account or create a new one if it doesn't exist.
+     *
+     * @return true if always use an existing account and never create a new one
+     */
+    public boolean getUseExistingAccount() {
+        return useExistingAccount;
+    }
+
+
+    /**
+     * Sets weather or not to use an existing account or create a new one if it doesn't exist.
+     *
+     * @param value true if always use an existing account and never create a new one
+     */
+    public void setUseExistingAccount(boolean value) {
+        useExistingAccount = value;
     }
 
     /**
